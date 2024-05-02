@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-05-02T10:13:28.674Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0" etag="r7FA4VqJneyr89qVSADr" version="24.3.1" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2024-05-02T11:44:52.428Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0" etag="5HYFhquZPLG-qcRrh2NI" version="24.3.1" type="github" pages="2">
   <diagram id="IncCn7JFb780kvAxidZT" name="Page-1">
     <mxGraphModel dx="1409" dy="981" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -91,18 +91,30 @@
           <mxGeometry x="330" y="20" width="136" height="30" as="geometry" />
         </mxCell>
         <mxCell id="jnJIH8IOWPuqXoEjTZp9-2" value="Logement" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="200" y="140" width="170" height="190" as="geometry">
+          <mxGeometry x="148" y="140" width="170" height="190" as="geometry">
             <mxRectangle x="200" y="140" width="90" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jnJIH8IOWPuqXoEjTZp9-5" value="id : NUMBER&lt;div&gt;adresse : VARCHAR&lt;/div&gt;&lt;div&gt;surface : NUMBER&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;nbPieces : NUMBER&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;hasGarden : BOOL&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;chauffage : VARCHAR&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;hasNeighbour : BOOL&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;hasPool : BOOL&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;etage : NUMBER&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Type : Categorie&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="jnJIH8IOWPuqXoEjTZp9-2">
+        <mxCell id="jnJIH8IOWPuqXoEjTZp9-5" value="id : NUMBER&lt;div&gt;adresse : VARCHAR&lt;/div&gt;&lt;div&gt;surface : NUMBER&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;nbPieces : NUMBER&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;hasGarden : BOOL&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;chauffage : VARCHAR&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;hasNeighbour : BOOL&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;hasPool : BOOL&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;etage : NUMBER&lt;/div&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;id_categorie : Categorie&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="jnJIH8IOWPuqXoEjTZp9-2">
           <mxGeometry y="26" width="170" height="164" as="geometry" />
         </mxCell>
         <mxCell id="10Ip67fLpdfIvoigGFW4-1" value="Categorie" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="490" y="140" width="140" height="80" as="geometry" />
+          <mxGeometry x="510" y="202" width="140" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="10Ip67fLpdfIvoigGFW4-2" value="id : NUMBER&lt;div&gt;Type : VARCHAR&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="10Ip67fLpdfIvoigGFW4-1">
+        <mxCell id="10Ip67fLpdfIvoigGFW4-2" value="id : NUMBER&lt;div&gt;typeL : VARCHAR&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="10Ip67fLpdfIvoigGFW4-1">
           <mxGeometry y="26" width="140" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="SgBgJYvXVkWJq8rPXm61-5" value="" style="endArrow=block;startArrow=block;endFill=1;startFill=1;html=1;rounded=0;entryX=-0.014;entryY=0.37;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="jnJIH8IOWPuqXoEjTZp9-5" target="10Ip67fLpdfIvoigGFW4-2">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="335" y="254" as="sourcePoint" />
+            <mxPoint x="495" y="254" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SgBgJYvXVkWJq8rPXm61-6" value="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="295" y="218" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SgBgJYvXVkWJq8rPXm61-8" value="0..n" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="466" y="216" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
