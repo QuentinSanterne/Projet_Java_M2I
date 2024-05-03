@@ -10,6 +10,7 @@ public class Logement {
     private int etage;
     private int cat_id;
 
+    //Contructeur simple
     public Logement(String addr, double surface, int nbPieces) {
         this.id=-1;
         this.adresse=addr;
@@ -22,6 +23,7 @@ public class Logement {
         this.cat_id=0;
     }
 
+    //Contructeur complet
     public Logement(String addr, double surface, int nbPieces, boolean garden, Chauffage chauffage,
                     boolean pool, int etage, int cat_id) {
         this.id=-1;
@@ -35,6 +37,7 @@ public class Logement {
         this.cat_id=cat_id;
     }
 
+    //Constructeur par copie
     public Logement(Logement loge) {
         this.id=loge.id;
         this.adresse=loge.adresse;
@@ -103,7 +106,11 @@ public class Logement {
                 hasGarden=oui;
                 break;
             case 5:
-                chauffage=Chauffage.valueOf(modif);
+                if (Integer.parseInt(modif) > Chauffage.values().length+1) {
+                    chauffage=Chauffage.AUTRE;
+                    break;
+                }
+                chauffage=Chauffage.values()[Integer.parseInt(modif)];
                 break;
             case 6:
                 System.out.println(modif);
@@ -125,13 +132,13 @@ public class Logement {
         String garden = hasGarden ? "Oui" : "Non";
         String pool = hasPool ? "Oui" : "Non";
         return "Logement " + id + " :" +
-                " \nAdresse : " + adresse +
-                " \nSurface :" + surface + "m²" +
-                " \nNombre de pièces : " + nbPieces +
-                " \nPossède un jardin : " + garden +
-                " \nType de chauffage : " + chauffage +
-                " \nPossède une piscine : " + pool +
-                " \nNombre d'étage(s) : " + etage +
-                " \nType de logement : " + cat_id ;
+                " \n\tAdresse : " + adresse +
+                " \n\tSurface :" + surface + "m²" +
+                " \n\tNombre de pieces : " + nbPieces +
+                " \n\tPossede un jardin : " + garden +
+                " \n\tType de chauffage : " + chauffage +
+                " \n\tPossede une piscine : " + pool +
+                " \n\tNombre d'etage(s) : " + etage +
+                " \n\tType de logement : " + cat_id ;
     }
 }

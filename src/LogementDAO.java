@@ -13,6 +13,7 @@ public class LogementDAO implements DAO<Logement> {
     private Connection conn;
 
     //Constructeur de classe
+    //Vide la table en bdd à la création
     public LogementDAO(){
         loges = new ArrayList<>();
         conn = ConnectionBDD.getConnection();
@@ -33,9 +34,11 @@ public class LogementDAO implements DAO<Logement> {
         }
     }
 
-    //Ajout du Logement "loge"
+    //Ajout du Logement "elem"
     @Override
     public void create(Logement elem) {
+        if(elem == null)
+            return;
         if(loges.contains(elem)) {
             elem = new Logement(elem);
         }
@@ -71,9 +74,11 @@ public class LogementDAO implements DAO<Logement> {
         }
     }
 
-    //Suppression du Logement "loge"
+    //Suppression du Logement "elem"
     @Override
     public void delete(Logement elem) {
+        if(elem == null)
+            return;
         String deleteStatement = "DELETE FROM Logement WHERE id = ?;";
         try (PreparedStatement deleteLoge = conn.prepareStatement(deleteStatement)) {
             conn.setAutoCommit(false);
@@ -96,9 +101,11 @@ public class LogementDAO implements DAO<Logement> {
         }
     }
 
-    //Mise à jour du Logement ayant l'id "id" avec les données de "loge"
+    //Mise à jour du Logement ayant l'id "id" avec les données de "elem"
     @Override
     public void update(Logement elem, int id) {
+        if(elem == null)
+            return;
         String updateStatement = "UPDATE Logement set adresse=?, surface=?, nbPieces=?, hasGarden=?, " +
                 "chauffage=?, hasPool=?, etage=?, id_categorie=? WHERE id=?;";
         try (PreparedStatement updateLoge = conn.prepareStatement(updateStatement)) {
@@ -113,8 +120,10 @@ public class LogementDAO implements DAO<Logement> {
             updateLoge.setInt(7,elem.getEtage());
             updateLoge.setInt(8, elem.getCategorie());
 
+            //execute le update en bdd
             updateLoge.executeUpdate();
             conn.commit();
+            //update dans le liste si le commit n'a pas throw d'exception
             loges.remove(loges.get(id));
             elem.setId(id);
             loges.add(id,elem);
@@ -138,9 +147,13 @@ public class LogementDAO implements DAO<Logement> {
         return loges;
     }
 
-    //Retourne le logement correspondant ayant l'id indiqué
+    //Retourne le logement ayant l'id indiqué
     @Override
     public Logement getById(int id) {
+        if (id > loges.size()-1) {
+            System.err.println("Logement hors de la liste");
+            return null;
+        }
         return loges.get(id);
     }
 

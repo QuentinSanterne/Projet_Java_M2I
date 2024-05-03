@@ -8,11 +8,12 @@ public class CategorieDAO implements DAO<Categorie>{
 
     private static int cpt_id=0;
 
-    //Contient tous les logements en base de données
+    //Contient toutes les catégorie en base de données
     private List<Categorie> categories;
     private Connection conn;
 
     //Constructeur de classe
+    //Vide la table en bdd à la création
     public CategorieDAO() {
         categories = new ArrayList<>();
         conn = ConnectionBDD.getConnection();
@@ -27,14 +28,17 @@ public class CategorieDAO implements DAO<Categorie>{
                     System.err.print("Transaction has been rolled back");
                     conn.rollback();
                 } catch (SQLException excep) {
-                    e.printStackTrace();
+                    excep.printStackTrace();
                 }
             }
         }
     }
 
+    //Ajout de la Categorie "elem"
     @Override
     public void create(Categorie elem) {
+        if(elem == null)
+            return;
         String insertStatement = "INSERT INTO Categorie(id,typeL) VALUES (?, ?);";
         try (PreparedStatement insertCat = conn.prepareStatement(insertStatement)) {
             conn.setAutoCommit(false);
@@ -59,8 +63,11 @@ public class CategorieDAO implements DAO<Categorie>{
         }
     }
 
+    //Suppression du Categorie "elem"
     @Override
     public void delete(Categorie elem) {
+        if(elem == null)
+            return;
         String deleteStatement = "DELETE FROM Categorie WHERE id = ?;";
         try (PreparedStatement deleteCat = conn.prepareStatement(deleteStatement)) {
             conn.setAutoCommit(false);
@@ -83,8 +90,11 @@ public class CategorieDAO implements DAO<Categorie>{
         }
     }
 
+    //Mise à jour de la Categorie ayant l'id "id" avec les données de "elem"
     @Override
     public void update(Categorie elem, int id) {
+        if(elem == null)
+            return;
         String updateStatement = "UPDATE Categorie set typeL = ? WHERE id = ?;";
         try (PreparedStatement updateCat = conn.prepareStatement(updateStatement)) {
             conn.setAutoCommit(false);
@@ -108,13 +118,19 @@ public class CategorieDAO implements DAO<Categorie>{
         }
     }
 
+    //Retourne toutes les catégories
     @Override
     public List<Categorie> getAll() {
         return this.categories;
     }
 
+    //Retourne la catégorie ayant l'id indiqué
     @Override
     public Categorie getById(int id) {
+        if (id > categories.size()-1) {
+            System.err.println("Categorie hors de la liste");
+            return null;
+        }
         return categories.get(id);
     }
 }
