@@ -15,15 +15,15 @@ public class ExportJSON {
         conn = ConnectionBDD.getConnection();
     }
 
-    public void exportTabletoJSON() {
+    public void exportTabletoJSON(String fileName) {
 
 
     try (Statement stmt = conn.createStatement()) {
-            String sql = "SELECT * FROM ma_table";
+            String sql = "SELECT * FROM logement";
             ResultSet rs = stmt.executeQuery(sql);
 
             Gson gson = new Gson();
-            FileWriter writer = new FileWriter("export.json");
+            FileWriter writer = new FileWriter(fileName+".json");
 
             while (rs.next()) {
                 // Convertir chaque ligne de résultat en objet JSON

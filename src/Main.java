@@ -9,11 +9,12 @@ public class Main {
         LogementDAO logeDao = new LogementDAO();
         CategorieDAO catDao = new CategorieDAO();
 
-        catDao.create(new Categorie("Maison"));
-        catDao.create(new Categorie("Appartement"));
+        //catDao.create(new Categorie("Maison"));
+        //catDao.create(new Categorie("Appartement"));
 
         logeDao.create(new Logement("1 rue blabla", 90.4, 6, true,
                 Chauffage.CH_ELECTRICITE_INDIVIDUEL, true, 2, 0));
+        System.out.println("Logement BLBLA successfully created \\o/");
 
         System.out.println("=============Inventaire==============");
         System.out.println("Catégories de logement : ");
@@ -38,6 +39,7 @@ public class Main {
             System.out.println("6. Ajouter un logement.");
             System.out.println("7. Supprimer un logement.");
             System.out.println("8. Modifier un logement.");
+            System.out.println("9. Importer/exporter la base de données.");
             System.out.println("0 pour sortir.\n");
 
             choixMenu = sc.nextInt();
@@ -98,6 +100,27 @@ public class Main {
                     input = sc.nextLine();
                     newLoge.updateOnce(inputModif,input);
                     logeDao.update(newLoge,Integer.parseInt(inputIndexLoge));
+                    break;
+                case 9 :
+                    System.out.println("Souhaitez-vous :");
+                    System.out.println("1. Importer une table\n2. Exporter une table");
+                    int inputIE = sc.nextInt();
+                    System.out.println("Quel est le format utilisé ?");
+                    System.out.println("1. JSON\n2. CSV");
+                    int inputFormat = sc.nextInt();
+                    input = sc.nextLine();
+                    System.out.println("Entrez le nom du fichier : ");
+                    String inputFileName = sc.nextLine();
+                    if (inputIE == 2 && inputFormat==1) {
+                        ExportJSON intoJSON = new ExportJSON();
+                        intoJSON.exportTabletoJSON(inputFileName);
+                        System.out.println("Fichier "+inputFileName+".json exporté avec succès. YEAY :D");
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     break;
             }
         }while (choixMenu != 0);
