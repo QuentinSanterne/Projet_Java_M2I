@@ -1,7 +1,5 @@
 public class Logement {
 
-    private static int cpt_id = 0;
-
     private int id;
     private String adresse;
     private double surface;
@@ -13,7 +11,7 @@ public class Logement {
     private int cat_id;
 
     public Logement(String addr, double surface, int nbPieces) {
-        this.id=cpt_id++;
+        this.id=-1;
         this.adresse=addr;
         this.surface=surface;
         this.nbPieces=nbPieces;
@@ -26,7 +24,7 @@ public class Logement {
 
     public Logement(String addr, double surface, int nbPieces, boolean garden, Chauffage chauffage,
                     boolean pool, int etage, int cat_id) {
-        this.id=cpt_id++;
+        this.id=-1;
         this.adresse=addr;
         this.surface=surface;
         this.nbPieces=nbPieces;
@@ -51,6 +49,10 @@ public class Logement {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAdresse() {

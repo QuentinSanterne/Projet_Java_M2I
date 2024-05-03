@@ -6,6 +6,8 @@ import java.util.List;
 
 public class CategorieDAO implements DAO<Categorie>{
 
+    private static int cpt_id=0;
+
     //Contient tous les logements en base de données
     private List<Categorie> categories;
     private Connection conn;
@@ -21,11 +23,12 @@ public class CategorieDAO implements DAO<Categorie>{
         String insertStatement = "INSERT INTO Categorie(id,typeL) VALUES (?, ?);";
         try (PreparedStatement insertCat = conn.prepareStatement(insertStatement)) {
             conn.setAutoCommit(false);
-            insertCat.setInt(1, elem.getId());
+            insertCat.setInt(1, cpt_id);
             insertCat.setString(2,elem.getTypeL());
 
             insertCat.executeUpdate();
             conn.commit();
+            elem.setId(cpt_id++);
             categories.add(elem);
 
         }catch (SQLException e){

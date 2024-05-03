@@ -1,12 +1,10 @@
 public class Categorie {
 
-    private static int cpt_id = 0;
-
     private int id;
     private String typeL;
 
     public Categorie(String typeL){
-        this.id = cpt_id++;
+        this.id = -1;
         this.typeL=typeL;
     }
 
@@ -17,6 +15,10 @@ public class Categorie {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id=id;
     }
 
     public String getTypeL() {

@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public class LogementDAO implements DAO<Logement> {
 
+    private static int cpt_id=0;
+
     //Contient tous les logements en base de données
     private List<Logement> loges;
     private Connection conn;
@@ -25,7 +27,7 @@ public class LogementDAO implements DAO<Logement> {
                 "hasPool, etage, id_categorie) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement insertLoge = conn.prepareStatement(insertStatement)) {
             conn.setAutoCommit(false);
-            insertLoge.setInt(1, elem.getId());
+            insertLoge.setInt(1, cpt_id);
             insertLoge.setString(2,elem.getAdresse());
             insertLoge.setDouble(3,elem.getSurface());
             insertLoge.setInt(4,elem.getNbPieces());
@@ -37,6 +39,7 @@ public class LogementDAO implements DAO<Logement> {
 
             insertLoge.executeUpdate();
             conn.commit();
+            elem.setId(cpt_id++);
             loges.add(elem);
 
         }catch (SQLException e){
