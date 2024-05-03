@@ -8,26 +8,45 @@ public class Logement {
     private int nbPieces;
     private boolean hasGarden;
     private Chauffage chauffage;
-    private Categorie cat;
+    private boolean hasPool;
+    private int etage;
+    private int cat_id;
 
-    public Logement(String addr, double surface, int nbPieces){
+    public Logement(String addr, double surface, int nbPieces) {
         this.id=cpt_id++;
         this.adresse=addr;
         this.surface=surface;
         this.nbPieces=nbPieces;
         this.hasGarden=false;
         this.chauffage=Chauffage.CH_ELECTRICITE_INDIVIDUEL;
-        this.cat=null;
+        this.hasPool=false;
+        this.etage=0;
+        this.cat_id=0;
     }
 
-    public Logement(String addr, double surface, int nbPieces, boolean garden, Chauffage chauffage, Categorie cat){
+    public Logement(String addr, double surface, int nbPieces, boolean garden, Chauffage chauffage,
+                    boolean pool, int etage, int cat_id) {
         this.id=cpt_id++;
         this.adresse=addr;
         this.surface=surface;
         this.nbPieces=nbPieces;
         this.hasGarden=garden;
         this.chauffage=chauffage;
-        this.cat=cat;
+        this.hasPool=pool;
+        this.etage=etage;
+        this.cat_id=cat_id;
+    }
+
+    public Logement(Logement loge) {
+        this.id=loge.id;
+        this.adresse=loge.adresse;
+        this.surface=loge.surface;
+        this.nbPieces=loge.nbPieces;
+        this.hasGarden=loge.hasGarden;
+        this.chauffage=loge.chauffage;
+        this.hasPool=loge.hasPool;
+        this.etage=loge.etage;
+        this.cat_id=loge.cat_id;
     }
 
     public int getId() {
@@ -46,7 +65,7 @@ public class Logement {
         return nbPieces;
     }
 
-    public boolean HasGarden() {
+    public boolean hasGarden() {
         return hasGarden;
     }
 
@@ -54,7 +73,30 @@ public class Logement {
         return chauffage;
     }
 
-    public Categorie getCategorie() {
-        return cat;
+    public boolean hasPool() {
+        return hasPool;
+    }
+
+    public int getEtage() {
+        return etage;
+    }
+
+    public int getCategorie() {
+        return cat_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Logement{" +
+                "id=" + id +
+                ", adresse='" + adresse + '\'' +
+                ", surface=" + surface +
+                ", nbPieces=" + nbPieces +
+                ", hasGarden=" + hasGarden +
+                ", chauffage=" + chauffage +
+                ", hasPool=" + hasPool +
+                ", etage=" + etage +
+                ", cat_id=" + cat_id +
+                '}';
     }
 }

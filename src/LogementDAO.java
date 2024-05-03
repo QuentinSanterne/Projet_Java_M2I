@@ -1,4 +1,6 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
@@ -13,26 +15,108 @@ public class LogementDAO implements DAO<Logement> {
     //Constructeur de classe
     public LogementDAO(){
         loges = new ArrayList<>();
-        conn = ConnectionBDD.getConnexion();
+        conn = ConnectionBDD.getConnection();
     }
 
     //Ajout du Logement "loge"
     @Override
-    public void create(Logement loge) {
-        loges.add(loge);
+    public void create(Logement elem) {
+        String insertStatement = "INSERT INTO Logement(id, adresse, surface, nbPieces, hasGarden, chauffage," +
+                "hasPool, etage, id_categorie) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        try (PreparedStatement insertLoge = conn.prepareStatement(insertStatement)) {
+            conn.setAutoCommit(false);
+            insertLoge.setInt(1, elem.getId());
+            insertLoge.setString(2,elem.getAdresse());
+            insertLoge.setDouble(3,elem.getSurface());
+            insertLoge.setInt(4,elem.getNbPieces());
+            insertLoge.setBoolean(5,elem.hasGarden());
+            insertLoge.setString(6,elem.getChauffage().name());
+            insertLoge.setBoolean(7,elem.hasPool());
+            insertLoge.setInt(8,elem.getEtage());
+            insertLoge.setInt(9, elem.getCategorie());
 
+            insertLoge.executeUpdate();
+            conn.commit();
+            loges.add(elem);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            if (conn != null) {
+                try {
+                    System.err.print("Transaction has been rolled back");
+                    conn.rollback();
+                }catch (SQLException excep){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     //Suppression du Logement "loge"
     @Override
-    public void delete(Logement loge) {
-        loges.remove(loge);
+    public void delete(Logement elem) {
+        String deleteStatement = "DELETE FROM Logement WHERE id = ?;";
+        try (PreparedStatement deleteLoge = conn.prepareStatement(deleteStatement)) {
+            conn.setAutoCommit(false);
+            deleteLoge.setInt(1, elem.getId());
+            deleteLoge.setString(2,elem.getAdresse());
+            deleteLoge.setDouble(3,elem.getSurface());
+            deleteLoge.setInt(4,elem.getNbPieces());
+            deleteLoge.setBoolean(5,elem.hasGarden());
+            deleteLoge.setString(6,elem.getChauffage().name());
+            deleteLoge.setBoolean(7,elem.hasPool());
+            deleteLoge.setInt(8,elem.getEtage());
+            deleteLoge.setInt(9, elem.getCategorie());
+
+            deleteLoge.executeUpdate();
+            conn.commit();
+            loges.remove(elem);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            if (conn != null) {
+                try {
+                    System.err.print("Transaction has been rolled back");
+                    conn.rollback();
+                }catch (SQLException excep){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     //Mise à jour du Logement ayant l'id "id" avec les données de "loge"
     @Override
-    public void update(Logement loge, int id) {
-        Logement loge_old = loges.get(id);
+    public void update(Logement elem, int id) {
+        String updateStatement = "UPDATE Logement set adresse=?, surface=?, nbPieces=?, hasGarden=?, " +
+                "chauffage=?, hasPool=?, etage=?, id_categorie=? WHERE id=?;";
+        try (PreparedStatement updateLoge = conn.prepareStatement(updateStatement)) {
+            conn.setAutoCommit(false);
+            updateLoge.setInt(9, elem.getId());
+            updateLoge.setString(1,elem.getAdresse());
+            updateLoge.setDouble(2,elem.getSurface());
+            updateLoge.setInt(3,elem.getNbPieces());
+            updateLoge.setBoolean(4,elem.hasGarden());
+            updateLoge.setString(5,elem.getChauffage().name());
+            updateLoge.setBoolean(6,elem.hasPool());
+            updateLoge.setInt(7,elem.getEtage());
+            updateLoge.setInt(8, elem.getCategorie());
+
+            updateLoge.executeUpdate();
+            conn.commit();
+            loges.remove(elem);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            if (conn != null) {
+                try {
+                    System.err.print("Transaction has been rolled back");
+                    conn.rollback();
+                }catch (SQLException excep){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     //Retourne tous les logements

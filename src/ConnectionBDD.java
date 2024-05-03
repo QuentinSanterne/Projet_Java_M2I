@@ -5,9 +5,9 @@ import java.sql.SQLException;
 public class ConnectionBDD {
 
     private Connection conn;
-    private final String URL = "";
-    private final String LOGIN = "";
-    private final String PASSWD = "";
+    private final String URL = "jdbc:mysql://localhost:3306/logements?useSSL=false&serverTimezone=UTC";
+    private final String LOGIN = "root";
+    private final String PASSWD = "r00t";
 
     //Instance du singleton
     private static ConnectionBDD instance;
@@ -22,7 +22,7 @@ public class ConnectionBDD {
     }
 
     //Retourne le singleton, le créant au passage s'il n'existe pas
-    public static Connection getConnexion(){
+    public static Connection getConnection(){
         if(instance == null){
             instance = new ConnectionBDD();
         }
