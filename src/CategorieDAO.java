@@ -13,9 +13,24 @@ public class CategorieDAO implements DAO<Categorie>{
     private Connection conn;
 
     //Constructeur de classe
-    public CategorieDAO(){
+    public CategorieDAO() {
         categories = new ArrayList<>();
         conn = ConnectionBDD.getConnection();
+        try (PreparedStatement truncate = conn.prepareStatement("delete from categorie;")) {
+            conn.setAutoCommit(false);
+            truncate.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            if (conn != null) {
+                try {
+                    System.err.print("Transaction has been rolled back");
+                    conn.rollback();
+                } catch (SQLException excep) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -23,12 +38,12 @@ public class CategorieDAO implements DAO<Categorie>{
         String insertStatement = "INSERT INTO Categorie(id,typeL) VALUES (?, ?);";
         try (PreparedStatement insertCat = conn.prepareStatement(insertStatement)) {
             conn.setAutoCommit(false);
-            insertCat.setInt(1, cpt_id);
+            insertCat.setInt(1, categories.size());
             insertCat.setString(2,elem.getTypeL());
 
             insertCat.executeUpdate();
             conn.commit();
-            elem.setId(cpt_id++);
+            elem.setId(categories.size());
             categories.add(elem);
 
         }catch (SQLException e){
@@ -78,7 +93,7 @@ public class CategorieDAO implements DAO<Categorie>{
 
             updateCat.executeUpdate();
             conn.commit();
-            categories.get(elem.getId()).updateTypeL(elem.getTypeL());
+            categories.get(id).updateTypeL(elem.getTypeL());
 
         } catch (SQLException e) {
             e.printStackTrace();

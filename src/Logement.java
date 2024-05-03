@@ -18,7 +18,7 @@ public class Logement {
         this.hasGarden=false;
         this.chauffage=Chauffage.CH_ELECTRICITE_INDIVIDUEL;
         this.hasPool=false;
-        this.etage=0;
+        this.etage=1;
         this.cat_id=0;
     }
 
@@ -87,18 +87,51 @@ public class Logement {
         return cat_id;
     }
 
+    public void updateOnce(int champ, String modif){
+        switch (champ) {
+            case 1:
+                adresse=modif;
+                break;
+            case 2:
+                surface=Double.parseDouble(modif);
+                break;
+            case 3:
+                nbPieces=Integer.parseInt(modif);
+                break;
+            case 4:
+                boolean oui = modif.equals("y") ? true : false;
+                hasGarden=oui;
+                break;
+            case 5:
+                chauffage=Chauffage.valueOf(modif);
+                break;
+            case 6:
+                System.out.println(modif);
+                boolean yes = modif.equals("y") ? true : false;
+                System.out.println(yes);
+                hasPool=yes;
+                break;
+            case 7:
+                etage=Integer.parseInt(modif);
+                break;
+            case 8:
+                cat_id=Integer.parseInt(modif);
+                break;
+        }
+    }
+
     @Override
     public String toString() {
-        return "Logement{" +
-                "id=" + id +
-                ", adresse='" + adresse + '\'' +
-                ", surface=" + surface +
-                ", nbPieces=" + nbPieces +
-                ", hasGarden=" + hasGarden +
-                ", chauffage=" + chauffage +
-                ", hasPool=" + hasPool +
-                ", etage=" + etage +
-                ", cat_id=" + cat_id +
-                '}';
+        String garden = hasGarden ? "Oui" : "Non";
+        String pool = hasPool ? "Oui" : "Non";
+        return "Logement " + id + " :" +
+                " \nAdresse : " + adresse +
+                " \nSurface :" + surface + "m²" +
+                " \nNombre de pièces : " + nbPieces +
+                " \nPossède un jardin : " + garden +
+                " \nType de chauffage : " + chauffage +
+                " \nPossède une piscine : " + pool +
+                " \nNombre d'étage(s) : " + etage +
+                " \nType de logement : " + cat_id ;
     }
 }

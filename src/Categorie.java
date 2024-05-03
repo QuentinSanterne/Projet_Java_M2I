@@ -31,9 +31,6 @@ public class Categorie {
 
     @Override
     public String toString() {
-        return "Categorie{" +
-                "id=" + id +
-                ", typeL='" + typeL + '\'' +
-                '}';
+        return "Categorie " + id + " : " + typeL;
     }
 }

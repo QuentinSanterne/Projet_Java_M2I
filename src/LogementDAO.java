@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 public class LogementDAO implements DAO<Logement> {
 
-    private static int cpt_id=0;
-
     //Contient tous les logements en base de données
     private List<Logement> loges;
     private Connection conn;
@@ -18,16 +16,34 @@ public class LogementDAO implements DAO<Logement> {
     public LogementDAO(){
         loges = new ArrayList<>();
         conn = ConnectionBDD.getConnection();
+        try (PreparedStatement truncate = conn.prepareStatement("truncate table logement;")) {
+            conn.setAutoCommit(false);
+            truncate.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            if (conn != null) {
+                try {
+                    System.err.print("Transaction has been rolled back");
+                    conn.rollback();
+                } catch (SQLException excep) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     //Ajout du Logement "loge"
     @Override
     public void create(Logement elem) {
+        if(loges.contains(elem)) {
+            elem = new Logement(elem);
+        }
         String insertStatement = "INSERT INTO Logement(id, adresse, surface, nbPieces, hasGarden, chauffage," +
                 "hasPool, etage, id_categorie) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement insertLoge = conn.prepareStatement(insertStatement)) {
             conn.setAutoCommit(false);
-            insertLoge.setInt(1, cpt_id);
+            insertLoge.setInt(1, loges.size());
             insertLoge.setString(2,elem.getAdresse());
             insertLoge.setDouble(3,elem.getSurface());
             insertLoge.setInt(4,elem.getNbPieces());
@@ -39,7 +55,7 @@ public class LogementDAO implements DAO<Logement> {
 
             insertLoge.executeUpdate();
             conn.commit();
-            elem.setId(cpt_id++);
+            elem.setId(loges.size());
             loges.add(elem);
 
         }catch (SQLException e){
@@ -62,14 +78,6 @@ public class LogementDAO implements DAO<Logement> {
         try (PreparedStatement deleteLoge = conn.prepareStatement(deleteStatement)) {
             conn.setAutoCommit(false);
             deleteLoge.setInt(1, elem.getId());
-            deleteLoge.setString(2,elem.getAdresse());
-            deleteLoge.setDouble(3,elem.getSurface());
-            deleteLoge.setInt(4,elem.getNbPieces());
-            deleteLoge.setBoolean(5,elem.hasGarden());
-            deleteLoge.setString(6,elem.getChauffage().name());
-            deleteLoge.setBoolean(7,elem.hasPool());
-            deleteLoge.setInt(8,elem.getEtage());
-            deleteLoge.setInt(9, elem.getCategorie());
 
             deleteLoge.executeUpdate();
             conn.commit();
@@ -107,7 +115,9 @@ public class LogementDAO implements DAO<Logement> {
 
             updateLoge.executeUpdate();
             conn.commit();
-            loges.remove(elem);
+            loges.remove(loges.get(id));
+            elem.setId(id);
+            loges.add(id,elem);
 
         }catch (SQLException e){
             e.printStackTrace();
